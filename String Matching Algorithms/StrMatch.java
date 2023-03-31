@@ -10,9 +10,10 @@ public class StrMatch {
     public static void main(String[] args) {
         MatchString MatchStr = new MatchString();
 
-        String text = "AABAACAADAABAAABAA";
+        String text = "AAAAAAAAAAAAAAAAABA";
         String pattern = "AABA";
 
+        System.out.println("Naive Approach (Brute Force)");
         long start1 = System.nanoTime();
         System.out.println(MatchStr.naiveApproach(text, pattern));
         long end1 = System.nanoTime();
@@ -20,6 +21,7 @@ public class StrMatch {
 
         System.out.println();
 
+        System.out.println("Rabin-Karp Approach");
         long start2 = System.nanoTime();
         System.out.println(MatchStr.rabinKarp(text, pattern, 17));
         long end2 = System.nanoTime();
@@ -27,6 +29,7 @@ public class StrMatch {
 
         System.out.println();
 
+        System.out.println("Knuth-Morris Pratt Approach");
         long start3 = System.nanoTime();
         System.out.println(MatchStr.KMP(text, pattern));
         long end3 = System.nanoTime();
@@ -130,41 +133,62 @@ class MatchString {
     }
 
     boolean KMP(String txt, String pat) {
+        boolean status = false;
         int M = pat.length();
         int N = txt.length();
-        boolean status = false;
 
         // create lps[] that will hold the longest
         // prefix suffix values for pattern
         int lps[] = new int[M];
-        int j = 0; // index for pat[]
+        int j = -1; // index for pat[]
 
-        // Preprocess the pattern (calculate lps[]
-        // array)
+        // Processing the pattern (computing lps[] array)
         computeLPSArray(pat, M, lps);
 
         int i = 0; // index for txt[]
-        while ((N - i) >= (M - j)) {
-            if (pat.charAt(j) == txt.charAt(i)) {
-                j++;
+
+        // Loop that will check for patterns in text provided
+        while (i < N) {
+
+            /*
+             * We match the characters of text and pattern
+             * If the character matches then we move further and check the next character
+             * and try to match the whole pattern, if any where the character does not match
+             * then we go to the else condition, read the comment in else to know more
+             */
+            if (txt.charAt(i) == pat.charAt(j + 1)) {
                 i++;
+                j++;
             }
-            if (j == M) {
-                System.out.println("Found pattern " + "at index " + (i - j));
-                status = true;
-                j = lps[j - 1];
+            /*
+             * If the character does not match then we go to lps array and and get the index
+             * as to not start from the beginning, which makes it different from naive
+             * approach.
+             */
+            else {
+                i++;
+                j = lps[j + 1] - 1;
             }
 
-            // mismatch after j matches
-            else if (i < N && pat.charAt(j) != txt.charAt(i)) {
-                // Do not match lps[0..lps[j-1]] characters,
-                // they will match anyway
-                if (j != 0)
-                    j = lps[j - 1];
-                else
-                    i = i + 1;
+            /*
+             * This is the default condition where we check if we have found the whole
+             * pattern and if we have then we change the status and check for more
+             * occurences of pattern in text by resetting the j
+             */
+            if (j == M - 1) {
+                System.out.println("Pattern found at index " + (i - j - 1));
+                j = -1;
+                status = true;
             }
+
         }
+
+        // If we don't find the pattern in the text then we print "Pattern not found in
+        // the console".
+        if (!status) {
+            System.out.println("Pattern not found");
+        }
+
         return status;
     }
 
