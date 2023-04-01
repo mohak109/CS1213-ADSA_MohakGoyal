@@ -17,6 +17,7 @@ public class StrMatch {
         String text = scan.nextLine();
         System.out.println("Enter the pattern to be matched:");
         String pattern = scan.nextLine();
+        System.out.println();
 
         scan.close();
 
@@ -70,7 +71,7 @@ class MatchString {
         for (int i = 0; i < (txt_l - pat_l) + 1; i++) {
 
             // check condition for matching pattern in text
-            if (pat.equalsIgnoreCase(txt.substring(i, i + pat_l))) {
+            if (pat.equals(txt.substring(i, i + pat_l))) {
                 System.out.println("Pattern found at index " + i);
                 status = true; // once we find the text, we change the status to be true
             }
@@ -128,7 +129,7 @@ class MatchString {
             if (hash_p == hash_t) {
 
                 // check condition for matching pattern in text
-                if (pat.equalsIgnoreCase(txt.substring(i, i + pat_l))) {
+                if (pat.equals(txt.substring(i, i + pat_l))) {
                     System.out.println("Pattern found at index " + i);
                     status = true; // once we find the text, we change the status to be true
                 }
@@ -155,7 +156,7 @@ class MatchString {
         int j = -1; // index for pat[]
 
         // Processing the pattern (computing lps[] array)
-        computeLPSArray(pat, M, lps);
+        computeLPSArray(pat, lps);
 
         int i = 0; // index for txt[]
 
@@ -204,7 +205,9 @@ class MatchString {
         return status;
     }
 
-    void computeLPSArray(String pat, int M, int lps[]) {
+    void computeLPSArray(String pat, int lps[]) {
+        // length of the pattern
+        int M = pat.length();
         // length of the previous longest prefix suffix
         int len = 0;
         int i = 1;
