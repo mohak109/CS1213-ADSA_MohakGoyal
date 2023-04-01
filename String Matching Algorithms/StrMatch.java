@@ -1,10 +1,9 @@
-
 /*
  * Author: Mohak Goyal (mohak109)
  * Created on: 30/03/2023
  * Last Updated on: 31/03/2023
  * Topic: String Matching Algorithms (Naive, Rabin Karb, KMP (Knuth Morris Pratt))
- * 
+ * Reference: GeeksforGeeks
  */
 
 import java.util.Scanner;
@@ -17,32 +16,27 @@ public class StrMatch {
         String text = scan.nextLine();
         System.out.println("Enter the pattern to be matched:");
         String pattern = scan.nextLine();
-        System.out.println();
 
         scan.close();
 
         MatchString MatchStr = new MatchString();
 
-        // text = "AAAAAAAAAAAAAAAAABA";
-        // pattern = "AABA";
+        // String text = "AAAAAAAAAAAABAAAAAA";
+        // String pattern = "AABA";
 
-        System.out.println("Naive Approach (Brute Force)");
+        System.out.println("\nNaive Approach (Brute Force)");
         long start1 = System.nanoTime();
         System.out.println(MatchStr.naiveApproach(text, pattern));
         long end1 = System.nanoTime();
         System.out.println("Elapsed Time in nano seconds: " + (end1 - start1));
 
-        System.out.println();
-
-        System.out.println("Rabin-Karp Approach");
+        System.out.println("\nRabin-Karp Approach");
         long start2 = System.nanoTime();
         System.out.println(MatchStr.rabinKarp(text, pattern, 17));
         long end2 = System.nanoTime();
         System.out.println("Elapsed Time in nano seconds: " + (end2 - start2));
 
-        System.out.println();
-
-        System.out.println("Knuth-Morris Pratt Approach");
+        System.out.println("\nKnuth-Morris Pratt Approach");
         long start3 = System.nanoTime();
         System.out.println(MatchStr.KMP(text, pattern));
         long end3 = System.nanoTime();
