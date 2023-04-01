@@ -1,3 +1,4 @@
+
 /*
  * Author: Mohak Goyal (mohak109)
  * Created on: 30/03/2023
@@ -6,12 +7,23 @@
  * 
  */
 
+import java.util.Scanner;
+
 public class StrMatch {
     public static void main(String[] args) {
+
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Enter the text:");
+        String text = scan.nextLine();
+        System.out.println("Enter the pattern to be matched:");
+        String pattern = scan.nextLine();
+
+        scan.close();
+
         MatchString MatchStr = new MatchString();
 
-        String text = "AAAAAAAAAAAAAAAAABA";
-        String pattern = "AABA";
+        // text = "AAAAAAAAAAAAAAAAABA";
+        // pattern = "AABA";
 
         System.out.println("Naive Approach (Brute Force)");
         long start1 = System.nanoTime();
