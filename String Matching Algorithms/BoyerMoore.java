@@ -1,8 +1,8 @@
-public class BoyerMorre {
+public class BoyerMoore {
     public static void main(String[] args) {
         String text = "ABAAABCHDBSHJBABCCJDCABDCDHCAJBCH";
         String pattern = "ABC";
-        System.out.println("\n"+"Boyer Moore Approach");
+        System.out.println("\nBoyer Moore Approach");
         System.out.println(boyerMoore(text, pattern));
     }
 
